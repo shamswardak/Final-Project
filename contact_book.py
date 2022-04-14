@@ -16,4 +16,8 @@ last_name_entry = Entry(root, width=20).place(x=80,y=25)
 phone_entry = Entry(root, width=20).place(x=80,y=45)
 address_entry = Entry(root, width=20).place(x=80,y=65)
 
+add_button = Button(root, text="Add").place(x=20, y=90)
+delete_button = Button(root, text="Delete").place(x=80, y=90)
+search_button = Button(root, text="Search").place(x=155, y=90)
+
 root.mainloop()
