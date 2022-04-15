@@ -24,3 +24,5 @@ search_button = Button(root, text="Search").place(x=155, y=90)
 info_box = list1 = Listbox(root, height=28, width=70).place(x=35,y=200) 
 
 root.mainloop()
+
+print("blank")
