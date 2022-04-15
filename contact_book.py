@@ -11,6 +11,12 @@ root.title('Contact Book') #Give our program a title
 root.geometry('700x700') #Size the window
 root.resizable(0, 0) #Restrict user from minimizing or resizing the window
 
+#Create StringVar's for entry gets()
+firstName = StringVar
+lastName = StringVar
+phoneNumber = StringVar
+address= StringVar
+
 #Add labels telling users what they can enter in
 Label(root, text= 'First Name').place(x=5,y=5)
 Label(root, text = 'Last Name').place(x=5,y=25)
