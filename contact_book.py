@@ -1,6 +1,11 @@
 from tkinter import *
 import sqlite3
 
+conn = sqlite3.connect('contacts_database.db')
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number TEXT)")
+conn.commit()
+
 root = Tk() 
 root.title('Contact Book') #Give our program a title
 root.geometry('700x700') #Size the window
