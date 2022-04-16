@@ -2,7 +2,13 @@ from tkinter import *
 import sqlite3
 
 class Database:
+    """Class that will create database, table, and add/delete/search inside the table"""
     def create_database():
+        """purpose of create_database() is to create a database using sqlite3 module
+        
+        Returns:
+        conn: Database connection
+        cursor: instance that allows us to execute SQL statements"""
         conn = sqlite3.connect('contacts_database.db')
         cursor = conn.cursor()
         return conn, cursor
@@ -10,6 +16,7 @@ class Database:
     conn, cursor = create_database()
 
     def __init__(self):
+        """Purpose of __init__() is to create contacts table and initialize cursor and connection"""
         self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number TEXT)")
         self.conn.commit()
     
