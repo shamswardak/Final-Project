@@ -2,7 +2,7 @@ from tkinter import *
 import sqlite3
 
 class Database:
-    """Class that will create database, table, and add/delete/search inside the table"""
+    """Class that will add/delete/search inside the table"""
     def create_database():
         """purpose of create_database() is to create a database using sqlite3 module
         
@@ -20,6 +20,13 @@ class Database:
         self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number TEXT)")
         self.conn.commit()
     
+    def add_to_database(self, first_name, last_name, address, phone):
+        self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, phone_number, address,))
+        self.conn.commit
+        
+
+    
+
 root = Tk() 
 root.title('Contact Book') #Give our program a title
 root.geometry('700x700') #Size the window
@@ -51,5 +58,8 @@ search_button = Button(root, text="Search").place(x=155, y=90)
 #Listbox that will soon store all contact information
 info_box = list1 = Listbox(root, height=28, width=70).place(x=35,y=200) 
 
+conn = sqlite3.connect('contacts_database.db')
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number TEXT)")
 
 root.mainloop() #Keep window open until closed
