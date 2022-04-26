@@ -21,8 +21,18 @@ class Database:
         self.conn.commit()
     
     def add_to_database(self, first_name, last_name, address, phone):
-        self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, phone_number, address,))
+        self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, address, phone,))
         self.conn.commit
+    
+    def delete_from_database(self, phone):
+        """function that will delete recordd by phone number since every contact has a unique phone number.
+        Meanwhile, values such as first names, last names, and addresses may be shared and deleting records
+        by those values may unintentioanlly delete multiple records
+        
+        Args:
+        phone(int): phone number that will be passed in to the SQL command that deletes a contact by the phone number"""
+        self.cursor.execute("DELETE FROM contacts WHERE phone =?", (phone,))
+        self.conn.commit()
         
 
     
