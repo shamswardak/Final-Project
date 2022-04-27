@@ -45,7 +45,12 @@ class Database:
         self.cursor.execute("SELECT * FROM contacts WHERE first_name=? OR last_name=? OR address=? OR phone=?",(first_name, last_name, address, phone,))
         self.conn.commit
 
-    
+database = Database
+
+class gui:
+    def add_contact():
+        database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get())
+        
 
 root = Tk() 
 root.title('Contact Book') #Give our program a title
