@@ -25,7 +25,7 @@ def add_to_database(first_name, last_name, address, phone):
         
         cursor.execute("SELECT * FROM contacts")
         conn.commit
-        print(cursor.fetchall())
+        print(cursor.fetchall()) #using print to show us if our function is working.
     
 
 add_to_database('John', 'Appleseed', '123 Apple Street', 11111) #running function to see if the added in contacts are listed in the database
@@ -33,3 +33,14 @@ add_to_database('John', 'Appleseed', '123 Apple Street', 11111) #running functio
 #you may change the parameter/contact elements to add more contacts and see that the contacts are being properly passed into the SQL code
 
 
+#Testing
+
+def select_all():
+    """Function that runs SQL code that selects all elements inside of contact table."""
+    cursor.execute("SELECT * FROM contacts")
+    conn.commit
+    print(cursor.fetchall()) #using print to show us if our function is working.
+
+select_all()
+
+#the call to select_all() should result in the values inside of the table to return, but in this case, print.
