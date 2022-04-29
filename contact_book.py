@@ -56,7 +56,7 @@ def get_selected(event):
     widget = event.widget
     index = int(widget.curselection()[0])
     value = widget.get(index)
-    print(value)
+    return value
 
 def view_all():
     for contact in database.select_all():
@@ -72,6 +72,7 @@ first_name = StringVar()
 last_name = StringVar()
 phone_number = StringVar()
 address= StringVar()
+all_elements = StringVar()
 
 #Add labels telling users what they can enter in
 Label(root, text= 'First Name').place(x=5,y=5)
@@ -91,6 +92,9 @@ phone_entry.place(x=80,y=45)
 
 address_entry = Entry(root, width=20, textvariable=address)
 address_entry.place(x=80,y=65)
+
+full_contact = Entry(root, width=30, textvariable=all_elements)
+full_contact.place(x=80,y=130)
 
 #Add buttons that will soon have commands
 add_button = Button(root, text="Add", command=add_contact).place(x=20, y=90)
