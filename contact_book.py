@@ -58,6 +58,9 @@ def get_selected(event):
     value = widget.get(index)
     print(value)
 
+def view_all():
+    for contact in database.select_all():
+        info_box.insert(END, contact)
 
 root = Tk() 
 root.title('Contact Book') #Give our program a title
@@ -93,7 +96,7 @@ address_entry.place(x=80,y=65)
 add_button = Button(root, text="Add", command=add_contact).place(x=20, y=90)
 delete_button = Button(root, text="Delete").place(x=80, y=90)
 search_button = Button(root, text="Search").place(x=155, y=90)
-view_button = Button(root, text="View All").place(x=235, y=90)
+view_button = Button(root, text="View All", command=view_all).place(x=235, y=90)
 
 #Listbox that will soon store all contact information
 info_box = list1 = Listbox(root, height=28, width=70)
