@@ -3,20 +3,13 @@ import sqlite3
 
 class Database:
     """Class that will add/delete/search inside the table"""
-    def create_database():
-        """purpose of create_database() is to create a database using sqlite3 module
-        
-        Returns:
-        conn: Database connection
-        cursor: instance that allows us to execute SQL statements"""
-        conn = sqlite3.connect('contacts_database.db')
-        cursor = conn.cursor()
-        return conn, cursor
-
-    conn, cursor = create_database()
-
     def __init__(self):
-        """Purpose of __init__() is to create contacts table and initialize cursor and connection"""
+        """purpose of __init__() is to initialize cursor and connection to database using sqlite3"""
+        self.conn = sqlite3.connect('contacts_database.db')
+        self.cursor = self.conn.cursor()
+
+    def create_table(self):
+        """Purpose of create_table() is to create contacts table """
         self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number TEXT)")
         self.conn.commit()
     
