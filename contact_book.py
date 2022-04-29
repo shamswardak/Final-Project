@@ -28,6 +28,10 @@ class Database:
 
         self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, address, phone,))
         self.conn.commit()
+
+        self.cursor.execute("SELECT * FROM contacts")
+        self.conn.commit
+        return self.cursor.fetchall()
     
     def delete_from_database(self, phone):
         """Function that will delete records by phone number since every contact has a unique phone number.
