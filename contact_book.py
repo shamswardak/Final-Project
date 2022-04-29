@@ -52,6 +52,12 @@ def add_contact():
     for contact in database.select_all():
         info_box.insert(END, contact)
 
+def get_selected(event):
+    widget = event.widget
+    index = int(widget.curselection()[0])
+    value = widget.get(index)
+    print(value)
+
 
 root = Tk() 
 root.title('Contact Book') #Give our program a title
@@ -91,5 +97,8 @@ search_button = Button(root, text="Search").place(x=155, y=90)
 #Listbox that will soon store all contact information
 info_box = list1 = Listbox(root, height=28, width=70)
 info_box.place(x=35,y=200) 
+
+info_box.bind('<<ListboxSelect>>', get_selected)
+
 
 root.mainloop() #Keep window open until closed
