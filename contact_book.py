@@ -56,7 +56,7 @@ def get_selected(event):
     widget = event.widget
     index = int(widget.curselection()[0])
     value = widget.get(index)
-    return value
+    all_elements.set(value)
 
 def view_all():
     for contact in database.select_all():
