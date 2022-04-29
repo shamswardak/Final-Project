@@ -8,15 +8,23 @@ class Database:
         """purpose of __init__() is to initialize cursor and connection to database using sqlite3 and create our table if it does not exist"""
         self.conn = sqlite3.connect('contacts_database.db')
         self.cursor = self.conn.cursor()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number TEXT)")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number INTEGER)")
         self.conn.commit()
     
     def add_to_database(self, first_name, last_name, address, phone):
+        """Function that will take in passed in first_name, last_name, address, phone and run the INSERT SQL command to add the contact into the database.
+        
+        Args: 
+        first_name(string): first name of contact
+        last_name(string): last name of contact
+        address(string): address of contact
+        phone(int): phone number of contact"""
+
         self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, address, phone,))
         self.conn.commit()
     
     def delete_from_database(self, phone):
-        """Function that will delete recordd by phone number since every contact has a unique phone number.
+        """Function that will delete records by phone number since every contact has a unique phone number.
         Meanwhile, values such as first names, last names, and addresses may be shared and deleting records
         by those values may unintentioanlly delete multiple records
         
@@ -38,6 +46,7 @@ class Database:
         return self.cursor.fetchall()
     
     def select_all(self):
+        """Function that runs SQL code that selects all elements inside of contact table."""
         self.cursor.execute("SELECT * FROM contacts")
         self.conn.commit
         return self.cursor.fetchall()
@@ -46,19 +55,22 @@ database = Database()
 
 
 def add_contact():
-    database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get())
-    info_box.delete(0, END)
+    """Purpose of add_contact is to get the value in each entry box and pass it into the database add_to_database function so the contact is added to the database"""
+    database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get()) #passes the entry box values into the database function
+    info_box.delete(0, END)#empties the listbox
 
-    for contact in database.select_all():
+    for contact in database.select_all(): #Adds contact to the listbox
         info_box.insert(END, contact)
 
 def get_selected(event):
+    """Purpose of get selected is to get the value linked to the users cursor selection and pass it into the all_elements entry box."""
     widget = event.widget
     index = int(widget.curselection()[0])
     value = widget.get(index)
     all_elements.set(value)
 
 def view_all():
+    """Purpose of view_all is to print all contacts from the database into the listbox"""
     for contact in database.select_all():
         info_box.insert(END, contact)
 
