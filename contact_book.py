@@ -62,6 +62,10 @@ def view_all():
     for contact in database.select_all():
         info_box.insert(END, contact)
 
+def delete_contact():
+    selected = full_contact.get()
+    print(selected)
+
 root = Tk() 
 root.title('Contact Book') #Give our program a title
 root.geometry('700x700') #Size the window
@@ -98,7 +102,7 @@ full_contact.place(x=80,y=130)
 
 #Add buttons that will soon have commands
 add_button = Button(root, text="Add", command=add_contact).place(x=20, y=90)
-delete_button = Button(root, text="Delete").place(x=80, y=90)
+delete_button = Button(root, text="Delete", command=delete_contact).place(x=80, y=90,)
 search_button = Button(root, text="Search").place(x=155, y=90)
 view_button = Button(root, text="View All", command=view_all).place(x=235, y=90)
 
