@@ -5,7 +5,10 @@ import sqlite3
 class Database:
     """Class that will add/delete/search inside the table"""
     def __init__(self):
-        """purpose of __init__() is to initialize cursor and connection to database using sqlite3 and create our table if it does not exist"""
+        """purpose of __init__() is to initialize cursor and connection to database using sqlite3 and create our table if it does not exist
+        
+        Driver: Shams
+        Navigator: Moyukh"""
         self.conn = sqlite3.connect('contacts_database.db')
         self.cursor = self.conn.cursor()
         self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number INTEGER)")
@@ -18,7 +21,10 @@ class Database:
         first_name(string): first name of contact
         last_name(string): last name of contact
         address(string): address of contact
-        phone(int): phone number of contact"""
+        phone(int): phone number of contact
+        
+        Driver: Moyukh
+        Navigator: Omar"""
 
         self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, address, phone,))
         self.conn.commit()
@@ -29,7 +35,10 @@ class Database:
         by those values may unintentioanlly delete multiple records
         
         Args:
-        phone(int): phone number that will be passed in to the SQL command that deletes a contact by the phone number"""
+        phone(int): phone number that will be passed in to the SQL command that deletes a contact by the phone number
+        
+        Driver: Shams
+        Navigator: Omar"""
         self.cursor.execute("DELETE FROM contacts WHERE phone=?", (phone,))
         self.conn.commit()
     
@@ -40,13 +49,19 @@ class Database:
         first_name(string): first name of contact
         last_name(string): last name of contact
         address(string): address of contact
-        phone(int): phone number of contact"""
+        phone(int): phone number of contact
+        
+        Driver: Moyukh
+        Navigator: Shams"""
         self.cursor.execute("SELECT * FROM contacts WHERE first_name=? OR last_name=? OR address=? OR phone=?",(first_name, last_name, address, phone,))
         self.conn.commit
         return self.cursor.fetchall()
     
     def select_all(self):
-        """Function that runs SQL code that selects all elements inside of contact table."""
+        """Function that runs SQL code that selects all elements inside of contact table.
+        
+        Driver: Omar
+        Navigator: Shams"""
         self.cursor.execute("SELECT * FROM contacts")
         self.conn.commit
         return self.cursor.fetchall()
@@ -55,7 +70,10 @@ database = Database()
 
 
 def add_contact():
-    """Purpose of add_contact is to get the value in each entry box and pass it into the database add_to_database function so the contact is added to the database"""
+    """Purpose of add_contact is to get the value in each entry box and pass it into the database add_to_database function so the contact is added to the database
+    
+    Driver: Moyukh
+    Navigator: Shams"""
     database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get()) #passes the entry box values into the database function
     info_box.delete(0, END)#empties the listbox
 
@@ -63,14 +81,20 @@ def add_contact():
         info_box.insert(END, contact)
 
 def get_selected(event):
-    """Purpose of get selected is to get the value linked to the users cursor selection and pass it into the all_elements entry box."""
+    """Purpose of get selected is to get the value linked to the users cursor selection and pass it into the all_elements entry box.
+    
+    Driver: Shams
+    Navigator: Moyukh"""
     widget = event.widget
     index = int(widget.curselection()[0])
     value = widget.get(index)
     all_elements.set(value)
 
 def view_all():
-    """Purpose of view_all is to print all contacts from the database into the listbox"""
+    """Purpose of view_all is to print all contacts from the database into the listbox
+    
+    Driver: Omar
+    Navigator: Shams"""
     for contact in database.select_all():
         info_box.insert(END, contact)
 
