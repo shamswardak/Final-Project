@@ -1,6 +1,6 @@
 from tkinter import *
 import sqlite3
-
+import re
 
 class Database:
     """Class that will add/delete/search inside the table"""
@@ -104,7 +104,10 @@ def view_all():
 
 def delete_contact():
     selected = full_contact.get()
-    print(selected)
+    cursor_selected = info_box.curselection()
+    selected_phone_number = re.findall(r"\d{10}", selected) #Use a regular expression to identify the phone number from the full contact information and save it.
+    database.delete_from_database(int(selected_phone_number[0]))
+    
 
 root = Tk() 
 root.title('Contact Book') #Give our program a title
