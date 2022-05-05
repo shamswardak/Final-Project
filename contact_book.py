@@ -1,6 +1,7 @@
 from tkinter import *
 import sqlite3
 import re
+from tkinter import messagebox
 
 class Database:
     """Class that will add/delete/search inside the table"""
@@ -43,7 +44,7 @@ class Database:
         
         Driver: Shams
         Navigator: Omar"""
-        self.cursor.execute("DELETE FROM contacts WHERE phone=?", (phone,))
+        self.cursor.execute("DELETE FROM contacts WHERE phone_number=?", (phone,))
         self.conn.commit()
     
     def search_in_database(self, first_name, last_name, address, phone):
@@ -57,7 +58,7 @@ class Database:
         
         Driver: Moyukh
         Navigator: Shams"""
-        self.cursor.execute("SELECT * FROM contacts WHERE first_name=? OR last_name=? OR address=? OR phone=?",(first_name, last_name, address, phone,))
+        self.cursor.execute("SELECT * FROM contacts WHERE first_name=? OR last_name=? OR address=? OR phone_number=?",(first_name, last_name, address, phone,))
         self.conn.commit
         return self.cursor.fetchall()
     
@@ -78,8 +79,12 @@ def add_contact():
     
     Driver: Moyukh
     Navigator: Shams"""
-    database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get()) #passes the entry box values into the database function
-    info_box.delete(0, END)#empties the listbox
+    if len(phone_number.get()) != 10:
+        messagebox.showinfo('Error', 'Please enter a 10-digit phone number.')
+        phone_entry.delete(0, END)
+    else:
+        database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get()) #passes the entry box values into the database function
+        info_box.delete(0, END)#empties the listbox
 
     for contact in database.select_all(): #Adds contact to the listbox
         info_box.insert(END, contact)
@@ -107,7 +112,7 @@ def delete_contact():
     cursor_selected = info_box.curselection()
     selected_phone_number = re.findall(r"\d{10}", selected) #Use a regular expression to identify the phone number from the full contact information and save it.
     database.delete_from_database(int(selected_phone_number[0]))
-    
+
 
 root = Tk() 
 root.title('Contact Book') #Give our program a title
