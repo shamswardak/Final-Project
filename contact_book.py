@@ -112,6 +112,7 @@ def delete_contact():
     cursor_selected = info_box.curselection()
     selected_phone_number = re.findall(r"\d{10}", selected) #Use a regular expression to identify the phone number from the full contact information and save it.
     database.delete_from_database(int(selected_phone_number[0]))
+    info_box.delete(cursor_selected)
 
 
 root = Tk() 
