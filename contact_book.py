@@ -86,6 +86,12 @@ def add_contact():
         database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get()) #passes the entry box values into the database function
         info_box.delete(0, END)#empties the listbox
 
+        full_contact.delete(0, END)
+        first_name_entry.delete(0, END)
+        last_name_entry.delete(0, END)
+        phone_entry.delete(0, END)
+        address_entry.delete(0, END)
+
     for contact in database.select_all(): #Adds contact to the listbox
         info_box.insert(END, contact)
 
