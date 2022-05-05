@@ -110,6 +110,13 @@ def view_all():
     
     Driver: Omar
     Navigator: Shams"""
+
+    full_contact.delete(0, END)
+    first_name_entry.delete(0, END)
+    last_name_entry.delete(0, END)
+    phone_entry.delete(0, END)
+    address_entry.delete(0, END)
+    
     for contact in database.select_all():
         info_box.insert(END, contact)
 
