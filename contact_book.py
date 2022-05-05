@@ -129,6 +129,15 @@ def delete_contact():
     info_box.delete(cursor_selected)
     full_contact.delete(0, END)
 
+def search_contact():
+    """Purpose of search contact is to take user inputted values and search for specific contacts using their 
+    inputted values"""
+    full_contact.delete(0, END)
+    info_box.delete(0, END)
+
+    for data in database.search_in_database(first_name.get(), last_name.get(), address.get(), phone_number.get()):
+        info_box.insert(END, data)
+
 
 
 root = Tk() 
@@ -168,7 +177,7 @@ full_contact.place(x=80,y=130)
 #Add buttons that will soon have commands
 add_button = Button(root, text="Add", command=add_contact).place(x=20, y=90)
 delete_button = Button(root, text="Delete", command=delete_contact).place(x=80, y=90,)
-search_button = Button(root, text="Search").place(x=155, y=90)
+search_button = Button(root, text="Search", command=search_contact).place(x=155, y=90)
 view_button = Button(root, text="View All", command=view_all).place(x=235, y=90)
 
 #Listbox that will soon store all contact information
