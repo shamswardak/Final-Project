@@ -116,6 +116,7 @@ def view_all():
     last_name_entry.delete(0, END)
     phone_entry.delete(0, END)
     address_entry.delete(0, END)
+    info_box.delete(0, END)
     
     for contact in database.select_all():
         info_box.insert(END, contact)
