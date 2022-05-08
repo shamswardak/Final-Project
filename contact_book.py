@@ -80,9 +80,21 @@ def add_contact():
     
     Driver: Moyukh
     Navigator: Shams"""
+    if len(first_name.get()) < 1:
+        messagebox.showinfo('info', 'Please enter a first name.')
+        first_name_entry.delete(0, END)
+        info_box.delete(0, END)
+    if len(last_name.get()) < 1:
+        messagebox.showinfo('info', 'Please enter a last name.')
+        last_name_entry.delete(0, END)
+        info_box.delete(0, END)
     if len(phone_number.get()) != 10:
         messagebox.showinfo('Error', 'Please enter a 10-digit phone number.')
         phone_entry.delete(0, END)
+    if len(address.get()) < 1:
+        messagebox.showinfo('info', 'Please enter an address.')
+        address_entry.delete(0, END)
+        info_box.delete(0, END)
     else:
         database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get()) #passes the entry box values into the database function
         info_box.delete(0, END)#empties the listbox
