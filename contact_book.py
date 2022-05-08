@@ -3,6 +3,7 @@ import sqlite3
 import re
 from tkinter import messagebox
 
+
 class Database:
     """Class that will add/delete/search inside the table"""
     def __init__(self):
@@ -122,12 +123,15 @@ def view_all():
         info_box.insert(END, contact)
 
 def delete_contact():
-    selected = full_contact.get()
-    cursor_selected = info_box.curselection()
-    selected_phone_number = re.findall(r"\d{10}", selected) #Use a regular expression to identify the phone number from the full contact information and save it.
-    database.delete_from_database(int(selected_phone_number[0]))
-    info_box.delete(cursor_selected)
-    full_contact.delete(0, END)
+    if len (all_elements.get()) < 1:
+        messagebox.showinfo('error', 'No contact selected.')
+    else:
+        selected = full_contact.get()
+        cursor_selected = info_box.curselection()
+        selected_phone_number = re.findall(r"\d{10}", selected) #Use a regular expression to identify the phone number from the full contact information and save it.
+        database.delete_from_database(int(selected_phone_number[0]))
+        info_box.delete(cursor_selected)
+        full_contact.delete(0, END)
 
 def search_contact():
     """Purpose of search contact is to take user inputted values and search for specific contacts using their 
