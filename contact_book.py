@@ -30,9 +30,6 @@ class Database:
 
         self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, address, phone,))
         self.conn.commit()
-
-        self.cursor.execute("SELECT * FROM contacts")
-        self.conn.commit
         return self.cursor.fetchall()
     
     def delete_from_database(self, phone):
@@ -129,6 +126,7 @@ def view_all():
     last_name_entry.delete(0, END)
     phone_entry.delete(0, END)
     address_entry.delete(0, END)
+    
     info_box.delete(0, END)
     
     for contact in database.select_all():
