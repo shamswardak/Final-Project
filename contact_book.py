@@ -14,7 +14,6 @@ class Database:
         self.conn = sqlite3.connect('contacts_database.db') #establishes connection
         self.cursor = self.conn.cursor() #establishes a cursor
         self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number INTEGER)") #uses SQL code to create a table if it does not already exist
-        self.commit() #commmits changes
     
     def add_to_database(self, first_name, last_name, address, phone):
         """Function that will take in passed in first_name, last_name, address, phone and run the INSERT SQL command to add the contact into the database.
@@ -31,7 +30,7 @@ class Database:
         Driver: Moyukh
         Navigator: Omar"""
 
-        self.cursor.execute("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, address, phone,)) #uses SQL code to add a contact with passed in elements
+        self.execute_with_inputs("INSERT INTO contacts VALUES (?,?,?,?)", (first_name, last_name, address, phone,)) #uses SQL code to add a contact with passed in elements
         self.commit() #commits changes
         return self.cursor.fetchall() #returns all of the contacts in the query result set
     
@@ -45,7 +44,7 @@ class Database:
         
         Driver: Shams
         Navigator: Omar"""
-        self.cursor.execute("DELETE FROM contacts WHERE phone_number=?", (phone,)) #uses SQL code to delete a contact by a passed in phone number
+        self.execute_with_inputs("DELETE FROM contacts WHERE phone_number=?", (phone,)) #uses SQL code to delete a contact by a passed in phone number
         self.commit() #commits changes
     
     def search_in_database(self, first_name, last_name, address, phone):
@@ -62,8 +61,8 @@ class Database:
         
         Driver: Moyukh
         Navigator: Shams"""
-        self.cursor.execute("SELECT * FROM contacts WHERE first_name=? OR last_name=? OR address=? OR phone_number=?",(first_name, last_name, address, phone,)) #uses SQL code to select a contact based on passed in search value
-        self.commit #commits changes
+        self.execute_with_inputs("SELECT * FROM contacts WHERE first_name=? OR last_name=? OR address=? OR phone_number=?",(first_name, last_name, address, phone,)) #uses SQL code to select a contact based on passed in search value
+        self.commit() #commits changes
         return self.cursor.fetchall() #returns all of the contacts selected in the query result set
     
     def select_all(self):
@@ -74,13 +73,21 @@ class Database:
         
         Driver: Omar
         Navigator: Shams"""
-        self.cursor.execute("SELECT * FROM contacts") #uses SQL code to select every row from the table
-        self.commit #commits changes
+        self.execute_no_inputs("SELECT * FROM contacts") #uses SQL code to select every row from the table
+        self.commit() #commits changes
         return self.cursor.fetchall() #returns all of the contacts in the query result set
 
     def commit(self):
         """Function that commmits chnages to the database"""
-        self.conn.commit
+        self.conn.commit()
+
+    def execute_no_inputs(self, sql):
+        self.cursor.execute(sql)
+        self.commit()
+
+    def execute_with_inputs(self, sql, inputs):
+        self.cursor.execute(sql, inputs)
+        self.commit()
 
 database = Database() #create Database object
 
