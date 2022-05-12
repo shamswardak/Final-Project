@@ -95,7 +95,7 @@ def add_contact():
         messagebox.showinfo('info', 'Please enter an address.')
         address_entry.delete(0, END)
         info_box.delete(0, END)
-    else:
+    elif len(phone_number.get()) == 10 and len(first_name.get()) > 1 and len(last_name.get()) > 1 and len(address.get()) > 1:
         database.add_to_database(first_name.get(), last_name.get(), address.get(), phone_number.get()) #passes the entry box values into the database function
         info_box.delete(0, END)#empties the listbox
 
