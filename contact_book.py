@@ -77,19 +77,29 @@ class Database:
         return self.cursor.fetchall() #returns all of the contacts in the query result set
     
     def create_table(self):
+        """Function that creates the contact table"""
         self.execute_no_inputs("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number INTEGER)") #uses SQL code to create a table if it does not already exist
 
     def commit(self):
         """Function that commmits chnages to the database"""
-        self.conn.commit()
+        self.conn.commit() #commits to database connection
 
     def execute_no_inputs(self, sql):
-        self.cursor.execute(sql)
-        self.commit()
+        """Function that executes the cursor to run a sql command which does not include any additional input
+        
+        Args: 
+        sql: SQL code being passed in"""
+        self.cursor.execute(sql) #executes SQL code
+        self.commit() #commits changes
 
     def execute_with_inputs(self, sql, inputs):
-        self.cursor.execute(sql, inputs)
-        self.commit()
+        """Function that executes the cursor to run a sql command which includes inputs from the user's entries
+        
+        Args: 
+        sql: SQL code being passed in
+        inputs: contact element inputs containing strings and ints"""
+        self.cursor.execute(sql, inputs) #executes SQL code with input
+        self.commit() #commits changes
 
 def add_contact():
     """Purpose of add_contact is to get the value in each entry box and pass it into the database add_to_database function so the contact is added to the database
