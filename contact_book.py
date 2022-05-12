@@ -3,7 +3,6 @@ import sqlite3
 import re
 from tkinter import messagebox
 
-
 class Database:
     """Class that will add/delete/search inside the table"""
     def __init__(self):
@@ -92,9 +91,6 @@ class Database:
         self.cursor.execute(sql, inputs)
         self.commit()
 
-database = Database() #create Database object
-
-
 def add_contact():
     """Purpose of add_contact is to get the value in each entry box and pass it into the database add_to_database function so the contact is added to the database
     
@@ -179,53 +175,53 @@ def search_contact():
     for data in database.search_in_database(first_name.get(), last_name.get(), address.get(), phone_number.get()): #for every result, insert it into the listbox
         info_box.insert(END, data)
 
+if __name__ == "__main__":
+    database = Database() #create Database object
 
+    root = Tk() #create window
+    root.title('Contact Book') #Give our program a title
+    root.geometry('700x700') #Size the window
+    root.resizable(0, 0) #Restrict user from minimizing or resizing the window
 
-root = Tk() #create window
-root.title('Contact Book') #Give our program a title
-root.geometry('700x700') #Size the window
-root.resizable(0, 0) #Restrict user from minimizing or resizing the window
+    #Create StringVar's to take inputs via entry
+    first_name = StringVar()
+    last_name = StringVar()
+    phone_number = StringVar()
+    address= StringVar()
+    all_elements = StringVar()
 
-#Create StringVar's to take inputs via entry
-first_name = StringVar()
-last_name = StringVar()
-phone_number = StringVar()
-address= StringVar()
-all_elements = StringVar()
+    #Add labels telling users what they can enter in and place them
+    Label(root, text= 'First Name').place(x=5,y=5)
+    Label(root, text = 'Last Name').place(x=5,y=25)
+    Label(root, text= 'Phone').place(x=5,y=45)
+    Label(root, text= 'Address').place(x=5,y=65)
 
-#Add labels telling users what they can enter in and place them
-Label(root, text= 'First Name').place(x=5,y=5)
-Label(root, text = 'Last Name').place(x=5,y=25)
-Label(root, text= 'Phone').place(x=5,y=45)
-Label(root, text= 'Address').place(x=5,y=65)
+    #Add entry boxes and save the entry to a variable and place them
+    first_name_entry = Entry(root, width=20, textvariable=first_name)
+    first_name_entry.place(x=80,y=5)
 
-#Add entry boxes and save the entry to a variable and place them
-first_name_entry = Entry(root, width=20, textvariable=first_name)
-first_name_entry.place(x=80,y=5)
+    last_name_entry = Entry(root, width=20, textvariable=last_name)
+    last_name_entry.place(x=80,y=25)
 
-last_name_entry = Entry(root, width=20, textvariable=last_name)
-last_name_entry.place(x=80,y=25)
+    phone_entry = Entry(root, width=20, textvariable=phone_number)
+    phone_entry.place(x=80,y=45)
 
-phone_entry = Entry(root, width=20, textvariable=phone_number)
-phone_entry.place(x=80,y=45)
+    address_entry = Entry(root, width=20, textvariable=address)
+    address_entry.place(x=80,y=65)
 
-address_entry = Entry(root, width=20, textvariable=address)
-address_entry.place(x=80,y=65)
+    full_contact = Entry(root, width=30, textvariable=all_elements)
+    full_contact.place(x=80,y=130)
 
-full_contact = Entry(root, width=30, textvariable=all_elements)
-full_contact.place(x=80,y=130)
+    #Add buttons that have commands (functions defined above) and place them
+    add_button = Button(root, text="Add", command=add_contact).place(x=20, y=90)
+    delete_button = Button(root, text="Delete", command=delete_contact).place(x=80, y=90,)
+    search_button = Button(root, text="Search", command=search_contact).place(x=155, y=90)
+    view_button = Button(root, text="View All", command=view_all).place(x=235, y=90)
 
-#Add buttons that have commands (functions defined above) and place them
-add_button = Button(root, text="Add", command=add_contact).place(x=20, y=90)
-delete_button = Button(root, text="Delete", command=delete_contact).place(x=80, y=90,)
-search_button = Button(root, text="Search", command=search_contact).place(x=155, y=90)
-view_button = Button(root, text="View All", command=view_all).place(x=235, y=90)
+    #Create Listbox that stores all contact information
+    info_box = list1 = Listbox(root, height=28, width=70)
+    info_box.place(x=35,y=200) 
 
-#Create Listbox that stores all contact information
-info_box = list1 = Listbox(root, height=28, width=70)
-info_box.place(x=35,y=200) 
+    info_box.bind('<<ListboxSelect>>', get_selected) #bind the listbox to allow a cursor selection
 
-info_box.bind('<<ListboxSelect>>', get_selected) #bind the listbox to allow a cursor selection
-
-
-root.mainloop() #Keep window open until closed
+    root.mainloop() #Keep window open until closed
