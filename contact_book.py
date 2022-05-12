@@ -13,8 +13,8 @@ class Database:
         Navigator: Moyukh"""
         self.conn = sqlite3.connect('contacts_database.db') #establishes connection
         self.cursor = self.conn.cursor() #establishes a cursor
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number INTEGER)") #uses SQL code to create a table if it does not already exist
-    
+        self.create_table() #creates contacts table
+      
     def add_to_database(self, first_name, last_name, address, phone):
         """Function that will take in passed in first_name, last_name, address, phone and run the INSERT SQL command to add the contact into the database.
         
@@ -76,6 +76,9 @@ class Database:
         self.execute_no_inputs("SELECT * FROM contacts") #uses SQL code to select every row from the table
         self.commit() #commits changes
         return self.cursor.fetchall() #returns all of the contacts in the query result set
+    
+    def create_table(self):
+        self.execute_no_inputs("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number INTEGER)") #uses SQL code to create a table if it does not already exist
 
     def commit(self):
         """Function that commmits chnages to the database"""
