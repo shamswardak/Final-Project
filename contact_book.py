@@ -77,18 +77,27 @@ class Database:
         return self.cursor.fetchall() #returns all of the contacts in the query result set
     
     def create_table(self):
-        """Function that creates the contact table"""
+        """Function that creates the contact table
+        
+        Driver: Moyukh
+        Navigator: Shams"""
         self.execute_no_inputs("CREATE TABLE IF NOT EXISTS contacts (first_name TEXT, last_name TEXT, address TEXT, phone_number INTEGER)") #uses SQL code to create a table if it does not already exist
 
     def commit(self):
-        """Function that commmits chnages to the database"""
+        """Function that commmits chnages to the database
+        
+        Driver: Shams
+        Navigator: Moyukh"""
         self.conn.commit() #commits to database connection
 
     def execute_no_inputs(self, sql):
         """Function that executes the cursor to run a sql command which does not include any additional input
         
         Args: 
-        sql: SQL code being passed in"""
+        sql: SQL code being passed in
+        
+        Driver: Moyukh
+        Navigator: Shams"""
         self.cursor.execute(sql) #executes SQL code
         self.commit() #commits changes
 
@@ -97,7 +106,10 @@ class Database:
         
         Args: 
         sql: SQL code being passed in
-        inputs: contact element inputs containing strings and ints"""
+        inputs: contact element inputs containing strings and ints
+        
+        Driver: Shams
+        Navigator: Moyukh"""
         self.cursor.execute(sql, inputs) #executes SQL code with input
         self.commit() #commits changes
 
@@ -166,6 +178,12 @@ def view_all():
         info_box.insert(END, contact)
 
 def delete_contact():
+    """Purpose of delete_contact() is to take the cursor selection which is stored in the full_contact entry box and then take the actual cursor 
+    selected item from the listbox. Use regex to identify the phone number from the cursor selection in the full entry box. Pass it into the delete_From_database method 
+    of the Database class. Delete the actual cursor selection from the listbox
+    
+    Driver: Moyukh
+    Navigator: Shams"""
     if len (all_elements.get()) < 1: #if no contact is selected, print an error
         messagebox.showinfo('error', 'No contact selected.')
     else:
@@ -178,7 +196,10 @@ def delete_contact():
 
 def search_contact():
     """Purpose of search contact is to take user inputted values and search for specific contacts using their 
-    inputted values"""
+    inputted values
+    
+    Driver: Shams
+    Navigator: Moyukh"""
     full_contact.delete(0, END) #clear the full contact box
     info_box.delete(0, END) #clear the listbox
 
@@ -186,6 +207,11 @@ def search_contact():
         info_box.insert(END, data)
 
 if __name__ == "__main__":
+    #If name == main statements are statements that basically ask:
+    #Is the current script being run natively or as a module?
+    #It the script is being run as a module, the block of code under this will not be executed.
+    #If the script is being run natively, the block of code below this will be executed.
+
     database = Database() #create Database object
 
     root = Tk() #create window
